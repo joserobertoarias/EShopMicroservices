@@ -1,6 +1,4 @@
-﻿using Catalog.API.Products.CreateProduct;
-
-namespace Catalog.API.Products.GetProducts
+﻿namespace Catalog.API.Products.GetProducts
 {
 
     //public record GetProductsRequest();
@@ -19,8 +17,8 @@ namespace Catalog.API.Products.GetProducts
             .WithName("GetProducts")
             .Produces<GetProductsResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get Product")
-            .WithDescription("GetProduct");
+            .WithSummary("Get Producsts")
+            .WithDescription("Get Products");
         }
     }
 }
