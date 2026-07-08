@@ -31,7 +31,7 @@ namespace Catalog.API.Products.UpdateProduct
 
             if (product == null)
             {
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(command.Id);
             }
             product.Name = command.Name;
             product.Category = command.Category;
