@@ -221,7 +221,7 @@ Separates operations into:
 - **Dependency Injection (DI) in ASP.NET Core:**
   A built-in feature that manages object creation and dependency resolution, promoting loose coupling and testability.
 
-- **Minimal APIs and Routing in ASP.NET 8:**
+- **Minimal APIs and Routing in ASP.NET 10:**
   Provides a lightweight approach to defining HTTP endpoints with minimal boilerplate while supporting routing and request handling.
 
 - **ORM (Object-Relational Mapping) Pattern:**
@@ -526,3 +526,85 @@ Product DTO
 - Combines the **flexibility of a document database** with the **reliability of a relational PostgreSQL database**.
 - The **Catalog** service uses **Marten** for **PostgreSQL** interaction as a **Document DB**.
 - 
+
+
+# 4. Project Folder Structure of Basket Microservices
+
+- The project is organized into the following main folders:
+  - **Model**
+  - **Features**
+  - **Data**
+  - **Abstractions**
+
+- **Features** such as **GetBasket** and **StoreBasket** contain their own:
+  - Request handlers
+  - Endpoint definitions
+
+- The main feature folder is **Basket**, which contains feature-specific implementations such as:
+  - `CheckoutBasket`
+  - `DeleteBasket`
+  - `GetBasket`
+  - `StoreBasket`
+
+- The **Data** folder contains repository classes responsible for managing:
+  - Database operations
+  - Cache interactions
+
+## Example Project Structure
+
+```text
+Basket.API
+├── Basket
+│   ├── CheckoutBasket
+│   ├── DeleteBasket
+│   ├── GetBasket
+│   │   ├── GetBasketEndpoints.cs
+│   │   └── GetBasketHandler.cs
+│   └── StoreBasket
+├── Data
+│   ├── BasketRepository.cs
+│   ├── CachedBasketRepository.cs
+│   └── IBasketRepository.cs
+├── Dtos
+├── Exceptions
+├── GrpcServices
+├── Models
+│   ├── ShoppingCart.cs
+│   └── ShoppingCartItem.cs
+├── Protos
+├── appsettings.json
+├── Dockerfile
+└── Program.cs
+```
+
+## Architecture Overview
+
+The Basket Microservice follows a **Vertical Slice Architecture** with **CQRS (Command Query Responsibility Segregation)**.
+
+### Flow
+
+```text
+Client
+   │
+   ▼
+External IP & Port
+   │
+   ▼
+Basket Microservice (Docker Container)
+   │
+   ▼
+Vertical Slice Architecture
+├── UI
+├── Application
+├── Domain
+└── Infrastructure
+   │
+   ▼
+CQRS
+   │
+   ▼
+Basket.API
+   │
+   ▼
+PostgreSQL Database
+```
