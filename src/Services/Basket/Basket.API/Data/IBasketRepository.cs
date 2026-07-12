@@ -1,6 +1,11 @@
-﻿namespace Basket.API.Data
+﻿using Microsoft.Extensions.Primitives;
+
+namespace Basket.API.Data
 {
-    public class IBasketRepository
+    public interface IBasketRepository
     {
+        Task<ShoppingCart> GetBasket(String userName, CancellationToken cancellationToken = default);
+        Task<ShoppingCart> StoreBasket(ShoppingCart cart, CancellationToken cancellationToken = default);
+        Task<bool> DeleteBasket(string userName, CancellationToken cancellationToken = default);
     }
 }
